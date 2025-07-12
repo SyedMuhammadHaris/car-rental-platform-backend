@@ -48,13 +48,16 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_spectacular',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.user'
+    'apps.user',
+    'apps.vehicle',
+    'apps.booking',
 ]
 
 MIDDLEWARE = [
@@ -153,6 +156,15 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "EXCEPTION_HANDLER": "utils.error_handler.custom_exception_handler",
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Car Rental API',
+    'DESCRIPTION': 'API documentation for the Car Rental Platform',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 SIMPLE_JWT = {
