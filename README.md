@@ -16,13 +16,13 @@ A Django REST API backend for a car rental platform, supporting user registratio
 ## Getting Started
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.10+
 - PostgreSQL
 
 ### Installation
 1. **Clone the repository:**
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/SyedMuhammadHaris/car-rental-platform-backend.git
    cd car-rental-backend
    ```
 2. **Create and activate a virtual environment:**
@@ -42,10 +42,6 @@ A Django REST API backend for a car rental platform, supporting user registratio
 5. **Apply migrations:**
    ```bash
    python manage.py migrate
-   ```
-6. **Create a superuser (optional, for admin access):**
-   ```bash
-   python manage.py createsuperuser
    ```
 
 ### Running the Server
