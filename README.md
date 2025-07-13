@@ -61,7 +61,7 @@ The API will be available at `http://127.0.0.1:8000/` by default.
 This project uses `pytest` for testing.
 
 ```bash
-pytest
+pytest apps/module/tests
 ```
 
 ---
