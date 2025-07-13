@@ -7,7 +7,6 @@ import pytz
 def is_valid_email(email):
     try:
         validate_email(email)
-        print(f"Email '{email}' is valid.")
         return True
     except ValidationError:
         return False
