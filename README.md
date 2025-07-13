@@ -37,7 +37,7 @@ A Django REST API backend for a car rental platform, supporting user registratio
 4. **Configure environment variables:**
    - Copy or create an environment file in `env/.local.env` (or the appropriate environment, e.g., `.prod.env`).
    - Required variables include:
-     - `SECRET_KEY`, `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_HOST`, `DB_PORT`, `JWT_AUDIENCE`, `JWT_ISSUER`
+     - `SECRET_KEY`, `DB_NAME`, `DB_USER`, `DB_PASS`, `DB_HOST`, `DB_PORT`, `JWT_AUDIENCE`, `JWT_ISSUER`, `PASSWORD_SALT`
 
 5. **Apply migrations:**
    ```bash
