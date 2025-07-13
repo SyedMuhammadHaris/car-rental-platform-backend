@@ -43,10 +43,6 @@ A Django REST API backend for a car rental platform, supporting user registratio
    ```bash
    python manage.py migrate
    ```
-6. **Create a superuser (optional, for admin access):**
-   ```bash
-   python manage.py createsuperuser
-   ```
 
 ### Running the Server
 ```bash
