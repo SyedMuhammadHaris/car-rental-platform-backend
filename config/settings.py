@@ -22,8 +22,7 @@ from django.db import connections
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-print("BASE_DIR")
-print(BASE_DIR)
+
 # BASE_DIR is assigned correctly above, so no changes are needed here.
 env = environ.Env()
 ENVIRONMENT = os.environ.get("ENV", "local")

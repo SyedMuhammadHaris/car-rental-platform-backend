@@ -2,7 +2,7 @@ import logging
 
 from rest_framework.views import exception_handler
 from rest_framework import status
-from rest_framework.exceptions import ValidationError, NotAuthenticated
+from rest_framework.exceptions import ValidationError, NotAuthenticated, APIException
 from rest_framework_simplejwt.exceptions import InvalidToken
 from utils.custom_responses import ErrorResponse
 
@@ -51,4 +51,4 @@ class CustomAPIException(Exception):
     def __init__(self, status_code, message):
         self.status_code = status_code
         self.message = message
-        super().__init__(self.message)
+        super().__init__(message)

@@ -8,52 +8,24 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from apps.user.serializers.user_serializer import UserSerializer
 from utils.custom_responses import ErrorResponse, SuccessResponse
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
+from .open_api_schemas import (
+    user_register_success_example,
+    user_register_duplicate_email_example
+)
 
 "Handle errros globally"
 
 class UserRegistrationView(APIView):
     @extend_schema(
         summary="Register a new user",
-        description="Create a new user account with email, password, and personal information",
         request=UserSerializer,
         responses={
             201: UserSerializer,
             400: None,
         },
         examples=[
-            OpenApiExample(
-                'Success Response',
-                value={
-                    "success": {
-                        "code": 201,
-                        "data": {
-                            "object": "user",
-                            "id": 1,
-                            "email": "john.doe@example.com",
-                            "first_name": "John",
-                            "last_name": "Doe",
-                            "phone": "1234567890",
-                            "status": 1,
-                            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
-                        },
-                        "message": "User registered successfully"
-                    }
-                },
-                response_only=True,
-                status_codes=['201']
-            ),
-            OpenApiExample(
-                'Error Response',
-                value={
-                    "error": {
-                        "code": 400,
-                        "data": None,
-                        "message": "Password is required"
-                    }
-                },
-                response_only=True,
-                status_codes=['400']
-            )
+            user_register_success_example,
+            user_register_duplicate_email_example
         ]
     )
     def post(self, request):

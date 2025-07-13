@@ -4,6 +4,8 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth.hashers import make_password
+from config.settings import env
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -38,12 +40,16 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User(
             email=validated_data["email"],
+            password=make_password(
+                validated_data.get("password"),
+                salt=env("PASSWORD_SALT"),
+                hasher="default",
+            ),
             first_name=validated_data["first_name"],
             last_name=validated_data["last_name"],
             phone=validated_data["phone"],
             status=1,
         )
-        user.set_password(validated_data["password"])
         user.save()
         return user
     

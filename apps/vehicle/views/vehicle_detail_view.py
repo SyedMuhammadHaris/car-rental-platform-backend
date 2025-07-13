@@ -1,13 +1,19 @@
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-
 from apps.booking.models.booking import Booking
 from apps.vehicle.models.vehicle import Vehicle
 from apps.vehicle.serializers.vehicle_serializer import VehicleSerializer
 from constants.common_status import CommonStatus
 from utils.custom_responses import SuccessResponse
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+from .open_api_schemas import (
+    vehicle_update_success_example,
+    vehicle_update_not_found_example,
+    vehicle_delete_success_example,
+    vehicle_delete_active_booking_example,
+    vehicle_delete_not_found_example
+)
 
 
 class VehicleDetailView(APIView):
@@ -31,40 +37,8 @@ class VehicleDetailView(APIView):
             404: None,
         },
         examples=[
-            OpenApiExample(
-                'Success Response',
-                value={
-                    "success": {
-                        "code": 200,
-                        "data": {
-                            "object": "vehicle",
-                            "id": 1,
-                            "user_id": 1,
-                            "make": "Toyota",
-                            "model": "Camry",
-                            "year": 2021,
-                            "plate": "ABC123",
-                            "created_at": "2024-01-01T00:00:00Z",
-                            "updated_at": "2024-01-01T00:00:00Z"
-                        },
-                        "message": "Vehicle updated successfully"
-                    }
-                },
-                response_only=True,
-                status_codes=['200']
-            ),
-            OpenApiExample(
-                'Vehicle Not Found',
-                value={
-                    "success": {
-                        "code": 404,
-                        "data": None,
-                        "message": "Vehicle not found"
-                    }
-                },
-                response_only=True,
-                status_codes=['404']
-            )
+            vehicle_update_success_example,
+            vehicle_update_not_found_example
         ]
     )
     def put(self, request, vehicle_id):
@@ -104,42 +78,9 @@ class VehicleDetailView(APIView):
             404: None,
         },
         examples=[
-            OpenApiExample(
-                'Success Response',
-                value={
-                    "success": {
-                        "code": 200,
-                        "data": None,
-                        "message": "Vehicle deleted successfully"
-                    }
-                },
-                response_only=True,
-                status_codes=['200']
-            ),
-            OpenApiExample(
-                'Vehicle Has Active Booking',
-                value={
-                    "success": {
-                        "code": 400,
-                        "data": None,
-                        "message": "Cannot delete vehicle while it has active booking"
-                    }
-                },
-                response_only=True,
-                status_codes=['400']
-            ),
-            OpenApiExample(
-                'Vehicle Not Found',
-                value={
-                    "success": {
-                        "code": 404,
-                        "data": None,
-                        "message": "Vehicle not found"
-                    }
-                },
-                response_only=True,
-                status_codes=['404']
-            )
+            vehicle_delete_success_example,
+            vehicle_delete_active_booking_example,
+            vehicle_delete_not_found_example
         ]
     )
     def delete(self, request, vehicle_id):

@@ -6,6 +6,13 @@ from rest_framework import status
 from apps.vehicle.serializers.vehicle_serializer import VehicleSerializer
 from utils.custom_responses import SuccessResponse
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
+from .open_api_schemas import (
+    vehicle_create_success_example,
+    vehicle_create_duplicate_plate_example,
+    vehicle_list_success_example,
+    vehicle_list_not_found_example,
+    add_vehcile_payload_schema
+)
 
 
 class VehicleView(APIView):
@@ -14,51 +21,18 @@ class VehicleView(APIView):
     @extend_schema(
         summary="Create a new vehicle",
         description="Add a new vehicle to the authenticated user's account",
-        request=VehicleSerializer,
+        request=add_vehcile_payload_schema,
         responses={
             201: VehicleSerializer,
             400: None,
         },
         examples=[
-            OpenApiExample(
-                'Success Response',
-                value={
-                    "success": {
-                        "code": 201,
-                        "data": {
-                            "object": "vehicle",
-                            "id": 1,
-                            "user_id": 1,
-                            "make": "Toyota",
-                            "model": "Corolla",
-                            "year": 2020,
-                            "plate": "ABC123",
-                            "created_at": "2024-01-01T00:00:00Z",
-                            "updated_at": "2024-01-01T00:00:00Z"
-                        },
-                        "message": "Vehicle created successfully"
-                    }
-                },
-                response_only=True,
-                status_codes=['201']
-            ),
-            OpenApiExample(
-                'Duplicate Plate Error',
-                value={
-                    "error": {
-                        "code": 400,
-                        "data": None,
-                        "message": "Plate already exists"
-                    }
-                },
-                response_only=True,
-                status_codes=['400']
-            )
+            vehicle_create_success_example,
+            vehicle_create_duplicate_plate_example
         ]
     )
     def post(self, request):
         user = request.user
-        print(f"User: {user.id}")
         payload = {"user": user.id, **request.data}
         serializer = VehicleSerializer(data=payload)
         if serializer.is_valid(raise_exception=True):
@@ -77,42 +51,8 @@ class VehicleView(APIView):
             404: None,
         },
         examples=[
-            OpenApiExample(
-                'Success Response',
-                value={
-                    "success": {
-                        "code": 200,
-                        "data": [
-                            {
-                                "object": "vehicle",
-                                "id": 1,
-                                "user_id": 1,
-                                "make": "Toyota",
-                                "model": "Corolla",
-                                "year": 2020,
-                                "plate": "ABC123",
-                                "created_at": "2024-01-01T00:00:00Z",
-                                "updated_at": "2024-01-01T00:00:00Z"
-                            }
-                        ],
-                        "message": "Vehicles retrieved successfully"
-                    }
-                },
-                response_only=True,
-                status_codes=['200']
-            ),
-            OpenApiExample(
-                'No Vehicles Found',
-                value={
-                    "success": {
-                        "code": 404,
-                        "data": [],
-                        "message": "No vehicles"
-                    }
-                },
-                response_only=True,
-                status_codes=['404']
-            )
+            vehicle_list_success_example,
+            vehicle_list_not_found_example
         ]
     )
     def get(self, request):
