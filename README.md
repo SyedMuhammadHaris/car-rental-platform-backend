@@ -22,7 +22,7 @@ A Django REST API backend for a car rental platform, supporting user registratio
 ### Installation
 1. **Clone the repository:**
    ```bash
-   git clone <repo-url>
+   git clone [<repo-url>](https://github.com/SyedMuhammadHaris/car-rental-platform-backend.git)
    cd car-rental-backend
    ```
 2. **Create and activate a virtual environment:**
