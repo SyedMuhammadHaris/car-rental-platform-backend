@@ -10,7 +10,7 @@ from constants.common_status import CommonStatus
 from utils.custom_responses import SuccessResponse
 from utils.error_handler import CustomAPIException
 from datetime import datetime
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from .open_api_schemas import (
     booking_create_success_example,
     booking_create_missing_vehicle_example,
@@ -149,7 +149,21 @@ class BookingView(APIView):
             )
         
         serializer = BookingSerializer(user_bookings, many=True)
-        
+        # amount_payable = 20 * 2 #(rental rate * number of days)
+        # session = stripe.checkout.Session.create(
+        #         success_url="https://example.com/success",
+        #         line_items=[
+        #             {
+        #                 "currency": "usd",
+        #                 "unit_amount": int(amount_payable * 100),
+        #                 "product_data": {
+        #                     "name": "Car Rental Booking",
+        #                 },
+        #             }
+        #         ],
+        #         metadata={"booking_id": serializer.data["id"], "user_id": user.id},
+        #         mode="payment",
+        #     )
         return SuccessResponse(
             status_code=status.HTTP_200_OK,
             data=serializer.data,

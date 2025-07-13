@@ -6,7 +6,7 @@ from apps.booking.models import Booking
 from datetime import datetime, timedelta
 
 @pytest.fixture
-def user(db):
+def user():
     return User.objects.create(
         email="bookinguser@example.com",
         password="pytestpass123",
