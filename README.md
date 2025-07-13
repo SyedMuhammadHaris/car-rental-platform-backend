@@ -17,7 +17,7 @@ A Django REST API backend for a car rental platform, supporting user registratio
 
 ### Prerequisites
 - Python 3.10+
-- PostgreSQL
+- PostgreSQL (14 or later)
 
 ### Installation
 1. **Clone the repository:**
